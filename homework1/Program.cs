@@ -34,12 +34,23 @@ Console.Write("Введите число: ");
 a = Convert.ToInt16(Console.ReadLine());
 if (a % 2 == 0) 
 {
-    Console.Write("Число " + a + " четное");
+    Console.Write("Число " + a + " четное.");
 }
 else
 {
-    Console.Write("Число " + a + " нечетное");
+    Console.Write("Число " + a + " нечетное.");
 }
-
+Console.WriteLine();
 //-----
 
+Console.WriteLine();
+Console.WriteLine("4. Выводим чётные числа от 1 до N .");
+Console.Write("Введите число N: ");
+int n = Convert.ToInt16(Console.ReadLine());
+Console.Write("Чётные числа от 1 до " + n + ": ");
+for (int i = 2; i <= n; i += 2)
+{
+    Console.Write(i);
+    Console.Write(" ");    
+}
+Console.WriteLine();
