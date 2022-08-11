@@ -1,26 +1,5 @@
-﻿/*
-Задача 10: Напишите программу, которая принимает на вход трёхзначное число и на выходе показывает вторую цифру этого числа.
-
-456 -> 5
-782 -> 8
-918 -> 1
-
-Задача 13: Напишите программу, которая выводит третью цифру заданного числа или сообщает, что третьей цифры нет.
-
-645 -> 5
-
-78 -> третьей цифры нет
-
-32679 -> 6
-
-Задача 15: Напишите программу, которая принимает на вход цифру, обозначающую день недели, и проверяет, является ли этот день выходным.
-
-6 -> да
-7 -> да
-1 -> нет
-*/
-
-bool makeСhoice(string question)
+﻿
+bool makeСhoice(string question)  // определяем выполнять (повторять) задачу или переходить к следующей
 {
     Console.WriteLine(question);
     while (true)
@@ -38,10 +17,11 @@ bool makeСhoice(string question)
             return false;
         }
     }
-    
+
 }
 
-int getThreeDigit()
+
+int getThreeDigit()  // получаем трехзначное число
 {
     while (true)
     {
@@ -55,12 +35,12 @@ int getThreeDigit()
     }
 }
 
-int getMiddleNumber(int num)
+int getMiddleNumber(int num)  // определяем среднюю цифру в трехзначном числе
 {
     return (num / 10 % 10);
 }
 
-string lookingThirdDigit(string numS)
+string lookingThirdDigit(string numS)  // определяем третий символ
 {
     if (numS.Length < 3)
     {
@@ -73,21 +53,20 @@ string lookingThirdDigit(string numS)
 }
 
 
-int choosingDay()
+int choosingDay()  // получаем номер дня недели
 {
     while (true)
     {
-        
-            Console.Write("Ведите номер дня недели (число от 1 до 7): ");
+        Console.Write("Ведите номер дня недели (число от 1 до 7): ");
         int dayNum = Convert.ToInt16(Console.ReadLine());
         if (dayNum > 0 & dayNum < 8)
         {
             return dayNum;
         }
-    }     
+    }
 }
 
-string whatDay(int dayNumber)
+string whatDay(int dayNumber)  // сообщаем что за день :-)
 {
     switch (dayNumber)
     {
@@ -110,7 +89,7 @@ string whatDay(int dayNumber)
     }
 }
 
-// Задачи
+// -----  Задачи  -----
 
 while (makeСhoice("Решаем задачу 10?"))
 {
@@ -137,3 +116,6 @@ while ((makeСhoice("Решаем задачу 15?")))
     Console.WriteLine(whatDay(choosingDay()));
     Console.WriteLine();
 }
+
+Console.WriteLine("Домашка выполнена!");
+Console.WriteLine();
