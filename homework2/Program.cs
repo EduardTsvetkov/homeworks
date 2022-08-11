@@ -34,10 +34,11 @@ bool makeСhoice(string question)
         }
         if (choice == "n")
         {
+            Console.WriteLine();
             return false;
         }
     }
-    Console.WriteLine();
+    
 }
 
 int getThreeDigit()
@@ -72,6 +73,45 @@ string lookingThirdDigit(string numS)
 }
 
 
+int choosingDay()
+{
+    while (true)
+    {
+        
+            Console.Write("Ведите номер дня недели (число от 1 до 7): ");
+        int dayNum = Convert.ToInt16(Console.ReadLine());
+        if (dayNum > 0 & dayNum < 8)
+        {
+            return dayNum;
+        }
+    }     
+}
+
+string whatDay(int dayNumber)
+{
+    switch (dayNumber)
+    {
+        case 1:
+            return "Первый день недели - отходим после выходных.";
+        case 2:
+            return "Второй день недели - готовимся к работе.";
+        case 3:
+            return "Третий день недели - работаем.";
+        case 4:
+            return "Четвертый день недели - отходим после работы.";
+        case 5:
+            return "Пятый день недели - готовимся к выходным.";
+        case 6:
+            return "Шестой день недели - первый выходной!";
+        case 7:
+            return "Первый день недели - второй выходной!";
+        default:
+            return "Что-то не так";
+    }
+}
+
+// Задачи
+
 while (makeСhoice("Решаем задачу 10?"))
 {
     int number3 = getThreeDigit();
@@ -81,9 +121,19 @@ while (makeСhoice("Решаем задачу 10?"))
 
 }
 
+
+
 while ((makeСhoice("Решаем задачу 13?")))
 {
     Console.Write("Ведите число: ");
     Console.WriteLine(lookingThirdDigit(Console.ReadLine()));
+    Console.WriteLine();
+}
+
+
+
+while ((makeСhoice("Решаем задачу 15?")))
+{
+    Console.WriteLine(whatDay(choosingDay()));
     Console.WriteLine();
 }
