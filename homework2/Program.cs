@@ -25,40 +25,51 @@ bool makeСhoice(string question)
     Console.WriteLine(question);
     while (true)
     {
-        Console.Write("Ведите Y (да) или N (нет): ");  
+        Console.Write("Ведите Y (да) или N (нет): ");
         string choice = Console.ReadLine();
         choice = choice.ToLower();
         if (choice == "y")
         {
             return true;
-        }      
+        }
         if (choice == "n")
         {
             return false;
         }
     }
-    
+    Console.WriteLine();
 }
 
-int getThreeDigit() 
+int getThreeDigit()
 {
     while (true)
     {
-        Console.Write("Ведите трехзначное число: ");  
+        Console.Write("Ведите трехзначное число: ");
         int num3 = Convert.ToInt16(Console.ReadLine());
         if (num3 > 99 & num3 < 1000)
         {
             return num3;
-        }  
+        }
         Console.WriteLine($"Число {num3} не трехзначное!");
-    }    
+    }
 }
 
 int getMiddleNumber(int num)
 {
-    return (num /10 % 10);
+    return (num / 10 % 10);
 }
 
+string lookingThirdDigit(string numS)
+{
+    if (numS.Length < 3)
+    {
+        return $"В числе {numS} третьей цифры нет!";
+    }
+    else
+    {
+        return $"В числе {numS} третья цифра {numS[2]}";
+    }
+}
 
 
 while (makeСhoice("Решаем задачу 10?"))
@@ -70,3 +81,9 @@ while (makeСhoice("Решаем задачу 10?"))
 
 }
 
+while ((makeСhoice("Решаем задачу 13?")))
+{
+    Console.Write("Ведите число: ");
+    Console.WriteLine(lookingThirdDigit(Console.ReadLine()));
+    Console.WriteLine();
+}
