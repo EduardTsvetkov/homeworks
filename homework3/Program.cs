@@ -1,10 +1,4 @@
-﻿//
-// Задача 21
-// Напишите программу, которая принимает на вход координаты двух точек и находит расстояние между ними в 3D пространстве.
-// A (3,6,8); B (2,1,-7), -> 15.84
-// A (7,-5, 0); B (1,-1,9) -> 11.53
-
-// Задача 23
+﻿// Задача 23
 // Напишите программу, которая принимает на вход число (N) и выдаёт таблицу кубов чисел от 1 до N.
 // 3 -> 1, 8, 27
 // 5 -> 1, 8, 27, 64, 125
@@ -74,6 +68,19 @@ double getLength3D(double x1, double y1, double z1, double x2, double y2, double
 }
 
 
+int[] CalculateCubes(int quantity)
+{
+    int[] cubes = new int[quantity];
+    for (int i = 1; i <= quantity; i++)
+    {
+        cubes[i-1] = i * i * i;
+    }
+    return cubes;
+}
+
+
+
+
 // -----  Задачи  -----
 
 while (makeСhoice("Решаем задачу 19?"))
@@ -89,7 +96,7 @@ while (makeСhoice("Решаем задачу 19?"))
         Console.WriteLine("НЕТ");
         Console.WriteLine();
     }
-    
+
 }
 
 
@@ -110,8 +117,21 @@ while ((makeСhoice("Решаем задачу 21?")))
     Console.Write("z = ");
     double bz = Convert.ToInt32(Console.ReadLine());
 
-
     Console.WriteLine(getLength3D(ax, ay, az, bx, by, bz));
     Console.WriteLine();
 }
 
+while (makeСhoice("Решаем задачу 23?"))
+{
+    Console.Write("Введите число: ");
+    int n = Convert.ToInt32(Console.ReadLine());
+    
+    int[] arrayCubes = CalculateCubes(n);
+
+    Console.Write("3 -> ");
+    foreach (int item in arrayCubes) 
+    {
+        Console.Write($"{item}, ");
+    }
+    Console.Write();
+}
