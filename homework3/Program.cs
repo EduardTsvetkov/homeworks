@@ -1,9 +1,4 @@
-﻿// Задача 23
-// Напишите программу, которая принимает на вход число (N) и выдаёт таблицу кубов чисел от 1 до N.
-// 3 -> 1, 8, 27
-// 5 -> 1, 8, 27, 64, 125
-
-
+﻿
 bool makeСhoice(string question)  // определяем выполнять (повторять) задачу или переходить к следующей
 {
     Console.WriteLine(question);
@@ -40,7 +35,7 @@ string getFiveDigit()  // получаем пятизначное число
     }
 }
 
-string stringReverse(string inputS)
+string stringReverse(string inputS)  // разворачиваем строку
 {
     string reverseS = "";
     for (int i = inputS.Length - 1; i >= 0; i--)
@@ -88,12 +83,12 @@ while (makeСhoice("Решаем задачу 19?"))
     string string5 = getFiveDigit();
     if (checkPalindrome(string5))
     {
-        Console.WriteLine("ДА");
+        Console.WriteLine($" Число {string5} - полиндром.");
         Console.WriteLine();
     }
     else
     {
-        Console.WriteLine("НЕТ");
+        Console.WriteLine($" Число {string5} - не полиндром.");
         Console.WriteLine();
     }
 
@@ -116,8 +111,9 @@ while ((makeСhoice("Решаем задачу 21?")))
     double by = Convert.ToInt32(Console.ReadLine());
     Console.Write("z = ");
     double bz = Convert.ToInt32(Console.ReadLine());
-
-    Console.WriteLine(getLength3D(ax, ay, az, bx, by, bz));
+    
+    Console.Write("AB = ");
+    Console.WriteLine(Math.Round(getLength3D(ax, ay, az, bx, by, bz), 2));
     Console.WriteLine();
 }
 
@@ -128,10 +124,11 @@ while (makeСhoice("Решаем задачу 23?"))
     
     int[] arrayCubes = CalculateCubes(n);
 
-    Console.Write("3 -> ");
+    Console.Write($"{n} -> ");
     foreach (int item in arrayCubes) 
     {
-        Console.Write($"{item}, ");
+        Console.Write($"{item} ");
     }
-    Console.Write();
+    Console.WriteLine();
+    Console.WriteLine();
 }
