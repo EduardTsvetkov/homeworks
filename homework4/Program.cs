@@ -11,7 +11,7 @@
 // 1, 2, 5, 7, 19 -> [1, 2, 5, 7, 19]
 // 6, 1, 33 -> [6, 1, 33]
 
-bool makeСhoice(string question)  // определяем выполнять (повторять) задачу или переходить к следующей
+bool MakeСhoice(string question)  // определяем выполнять (повторять) задачу или переходить к следующей
 {
     Console.WriteLine(question);
     while (true)
@@ -63,12 +63,27 @@ int RaiseNumberPower(int baseNum, int indexNum)  // пишем свой мето
     return result;
 }
 
-
-
-
-
-while (makeСhoice("Решаем задачу 25 (возведение в степень)?"))
+int SumDigit(int num)  // а вот так суммируем цифры
 {
+    int result = 0;
+    num = Math.Abs(num);
+    while (num >= 10)
+    {
+        result += num % 10;
+        num /= 10;
+    }
+    if (num < 10)
+    {
+        result += num;
+    }
+    return result;
+}
+
+
+
+while (MakeСhoice("Решаем задачу 25 (возведение в степень)?"))
+{
+    Console.Clear();
     Console.Write("Введите целое число A: ");
     int varA = GetInt();
     Console.Write("Введите натуральное число B (больше 0): ");
@@ -82,3 +97,14 @@ while (makeСhoice("Решаем задачу 25 (возведение в сте
     Console.WriteLine($"{varA} в степени {varB} равно {RaiseNumberPower(varA, varB)}");
     Console.WriteLine();
 }
+Console.Clear();
+
+while (MakeСhoice("Решаем задачу 27 (сумма цифр числа)?"))
+{
+    Console.Clear();
+    Console.Write("Введите целое число: ");
+    int number = GetInt();
+    Console.WriteLine($"Сумма цифр числа {number} равна {SumDigit(number)}");
+    Console.WriteLine();
+}
+Console.Clear();
