@@ -90,6 +90,7 @@ string[] GetArrayFromFile(string path)  // читаем все строки фа
 
 //----------- Задачи
 
+Console.Clear();
 while (MakeСhoice("Решаем задачу 25 (возведение в степень)?"))
 {
     Console.Clear();
@@ -119,10 +120,16 @@ while (MakeСhoice("Решаем задачу 27 (сумма цифр числа
 Console.Clear();
 
 
+/*
+Читаем массив из файла
+Текстовый файл должен находиться в текущей папке (либо указывать полный путь)
+В каждой строчке одно число
+*/
+
 while (MakeСhoice("Решаем задачу 29 (вывод массива на экран)?"))
 {
     Console.Clear();
-    Console.Write("Введите имя файла: ");
+    Console.Write("Введите имя файла (например, test.txt): ");
     string fileName = Console.ReadLine();
     while (!File.Exists(fileName))   // проверяем открывается ли файл
     {
@@ -143,28 +150,58 @@ while (MakeСhoice("Решаем задачу 29 (вывод массива на
     Console.WriteLine();
     Console.WriteLine();
 }
+Console.Clear();
 
 
+/*
+Читаем данные из файла
+Разбираем строчку на отдельные поля
+Текстовый файл должен находиться в текущей папке (либо указывать полный путь)
+В каждой строке текст типа
+Приход;12 675,15
+Расход;2 600,00
+*/
 
 
-// float receipt = 0;
-// float spending = 0;
-// for (int i = 1; i < strArr.Length; i++)
-// {
-//     string[] words = strArr[i].Split(';');  // разбиваем строку на слова по разделителю ;
-//     float sum = Convert.ToSingle(words[1].Replace(" ", ""));
-//     if (strArr[0] == "Приход")
-//     {
-//         receipt += sum;
-//     }
-//     else if (strArr[0] == "Расход")
-//     {
-//         spending += sum;
-//     }
+while (MakeСhoice("Бонус? "))
+{
+Console.Clear();
+    Console.Write("Введите имя файла (например, balance.txt): ");
+    string balanceFileName = Console.ReadLine();
+    while (!File.Exists(balanceFileName))   // проверяем открывается ли файл
+    {
+        Console.WriteLine($"Файл {balanceFileName} не существует.");
+        Console.Write("Введите имя файла (например, balance.txt): ");
+        balanceFileName = Console.ReadLine();
+    }
+
+    string[] balanceArr = GetArrayFromFile(balanceFileName);
+
+    float receipt = 0;
+    float spending = 0;
+    for (int i = 1; i < balanceArr.Length; i++)
+    {
+        string[] words = balanceArr[i].Split(';');  // разбиваем строку на слова по разделителю ;
+        float sum = Convert.ToSingle(words[1].Replace(" ", ""));
+        Console.WriteLine($"{words[0]}: {words[1]}");
+        if (words[0] == "Приход")
+        {
+            receipt += sum;
+        }
+        else if (words[0] == "Расход")
+        {
+            spending += sum;
+        }
 
 
-// }
-// Console.WriteLine($"Приход: {receipt}");
-// Console.WriteLine($"Расход: {spending}");
-// Console.WriteLine($"Баланс: {receipt - spending}");
+    }
+    double balance = Math.Round(receipt - spending, 2);
+    Console.WriteLine("-------------------");
+    Console.WriteLine($"Приход: {receipt}");
+    Console.WriteLine($"Расход: {spending}");
+    Console.WriteLine($"Баланс: {balance}");
+    Console.WriteLine();
+}
+
+// в следующий раз попробую читать excel...
 
