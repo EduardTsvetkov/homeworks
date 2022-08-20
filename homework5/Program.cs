@@ -45,7 +45,7 @@ int[] FillIntArray(int arraySize, int minValue, int maxValue)
 
 void PrintIntArray(int[] inputArray)  // вывод на экран массива целых чисел
 {
-    foreach (int item in inputArray) 
+    foreach (int item in inputArray)
     {
         Console.Write($"{item} ");
     }
@@ -54,7 +54,7 @@ void PrintIntArray(int[] inputArray)  // вывод на экран массив
 
 //------------
 
-int CheckEvenInArray(int[] inputArray)
+int CheckEvenInArray(int[] inputArray)  // подсчет количества четных чисел в массиве
 {
     int counter = 0;
     foreach (int item in inputArray)
@@ -69,6 +69,16 @@ int CheckEvenInArray(int[] inputArray)
 
 //------------
 
+int SumOddElements(int[] inputArray)  // подсчет суммы элементов на нечетных позициях
+{
+    int sum = 0;
+    for (int i = 1; i < inputArray.Length; i += 2)
+    {
+        sum += inputArray[i];
+    }
+
+    return sum;
+}
 
 //------------ Задачи
 
@@ -77,10 +87,24 @@ while (MakeСhoice("Решаем задачу 34? (количество чётн
 {
     Console.Clear();
     Console.Write("Введите размер массива: ");
-    int size = Convert.ToInt32(Console.ReadLine());
-    int min = 100, max = 999; 
-    int[] arr = FillIntArray(size, min, max);
-    PrintIntArray(arr);  // проверка заполнения массива
-    Console.WriteLine($"Четных чисел {CheckEvenInArray(arr)}");
+    int sizeFirstArr = Convert.ToInt32(Console.ReadLine());
+    int min = 100, max = 999;
+    int[] arr1 = FillIntArray(sizeFirstArr, min, max);
+    PrintIntArray(arr1);  // проверка заполнения массива
+    Console.WriteLine($"Четных чисел {CheckEvenInArray(arr1)}");
     Console.WriteLine();
-} 
+}
+
+Console.Clear();
+while (MakeСhoice("Решаем задачу 36 (сумма нечетных элементов)?"))
+{
+    Console.Clear();
+    int min = -10, max = 11; // пусть в массиве будут [-50, 50]
+    Console.Write("Введите размер массива: ");
+    int arrSize = Convert.ToInt32(Console.ReadLine());
+    int[] arr2 = FillIntArray(arrSize, min, max);
+    PrintIntArray(arr2);  // проверка заполнения массива
+    Console.WriteLine($"Сумма элементов на нечётных позициях {SumOddElements(arr2)}");
+    Console.WriteLine();
+}
+
