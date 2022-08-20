@@ -80,6 +80,23 @@ int SumOddElements(int[] inputArray)  // подсчет суммы элемен�
     return sum;
 }
 
+void GetExtremum(int[] inputArray, out int min, out int max)  // попробуем вернуть 2 значения
+{
+    min = inputArray[0];
+    max = inputArray[0];
+    for (int i = 1; i < inputArray.Length; i++)
+    {
+        if (inputArray[i] > max)
+        {
+            max = inputArray[i];
+        }
+        else if (inputArray[i] < min)
+        {
+            min = inputArray[i];
+        }
+    }
+}
+
 //------------ Задачи
 
 Console.Clear();
@@ -95,6 +112,8 @@ while (MakeСhoice("Решаем задачу 34? (количество чётн
     Console.WriteLine();
 }
 
+//------------
+
 Console.Clear();
 while (MakeСhoice("Решаем задачу 36 (сумма нечетных элементов)?"))
 {
@@ -105,6 +124,26 @@ while (MakeСhoice("Решаем задачу 36 (сумма нечетных э
     int[] arr2 = FillIntArray(arrSize, min, max);
     PrintIntArray(arr2);  // проверка заполнения массива
     Console.WriteLine($"Сумма элементов на нечётных позициях {SumOddElements(arr2)}");
+    Console.WriteLine();
+}
+
+//------------
+
+Console.Clear();
+while (MakeСhoice("Решаем задачу 38 (разница экстремумов)?"))
+{
+    Console.Clear();
+    int minEl, maxEl;
+    int min = 1, max = 21; // вещественные числа, пусть будут до 20
+    Console.Write("Введите размер массива: ");
+    int arr3Size = Convert.ToInt32(Console.ReadLine());
+    int[] arr3 = FillIntArray(arr3Size, min, max);
+    PrintIntArray(arr3);  // проверка заполнения массива
+    GetExtremum(arr3, out minEl, out maxEl);
+    Console.WriteLine($"Минимум  {minEl}");
+    Console.WriteLine($"Максимум {maxEl}");
+
+    Console.WriteLine($"Разница между максимальным и минимальным {maxEl - minEl}");
     Console.WriteLine();
 }
 
