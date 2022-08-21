@@ -43,9 +43,33 @@ int[] FillIntArray(int arraySize, int minValue, int maxValue)
 
 //------------
 
+double[] FillDoubleArray(int arraySize, int accuracyCalculations)  // получаем размер массива и точность вычисления
+{
+    double[] outputArray = new double[arraySize];
+    Random random = new Random();
+    for (int i = 0; i < arraySize; i++)
+    {
+        outputArray[i] = Math.Round(random.NextDouble(), accuracyCalculations);
+    }
+    return outputArray;
+}
+
+//------------
+
 void PrintIntArray(int[] inputArray)  // вывод на экран массива целых чисел
 {
     foreach (int item in inputArray)
+    {
+        Console.Write($"{item} ");
+    }
+    Console.WriteLine();
+}
+
+//------------
+
+void PrintDoubleArray(double[] inputArray)  // вывод на экран массива целых чисел
+{
+    foreach (double item in inputArray)
     {
         Console.Write($"{item} ");
     }
@@ -80,7 +104,7 @@ int SumOddElements(int[] inputArray)  // подсчет суммы элемен�
     return sum;
 }
 
-void GetExtremum(int[] inputArray, out int min, out int max)  // попробуем вернуть 2 значения
+void GetExtremum(double[] inputArray, out double min, out double max)  // попробуем вернуть 2 значения
 {
     min = inputArray[0];
     max = inputArray[0];
@@ -133,17 +157,18 @@ Console.Clear();
 while (MakeСhoice("Решаем задачу 38 (разница экстремумов)?"))
 {
     Console.Clear();
-    int minEl, maxEl;
-    int min = 1, max = 21; // вещественные числа, пусть будут до 20
+    double minEl, maxEl;  // в эти переменные будем возвращать экстремумы
     Console.Write("Введите размер массива: ");
     int arr3Size = Convert.ToInt32(Console.ReadLine());
-    int[] arr3 = FillIntArray(arr3Size, min, max);
-    PrintIntArray(arr3);  // проверка заполнения массива
+    Console.Write("Введите количество знаков после запятой: ");
+    int accuracy = Convert.ToInt32(Console.ReadLine());
+    double[] arr3 = FillDoubleArray(arr3Size, accuracy);
+    PrintDoubleArray(arr3);  // проверка заполнения массива
     GetExtremum(arr3, out minEl, out maxEl);
     Console.WriteLine($"Минимум  {minEl}");
     Console.WriteLine($"Максимум {maxEl}");
 
-    Console.WriteLine($"Разница между максимальным и минимальным {maxEl - minEl}");
+    Console.WriteLine($"Разница между максимальным и минимальным {Math.Round((maxEl - minEl), accuracy)}");
     Console.WriteLine();
 }
 
