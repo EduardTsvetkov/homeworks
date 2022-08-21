@@ -49,7 +49,7 @@ double[] FillDoubleArray(int arraySize, int accuracyCalculations)  // получ
     Random random = new Random();
     for (int i = 0; i < arraySize; i++)
     {
-        outputArray[i] = Math.Round(random.NextDouble(), accuracyCalculations);
+        outputArray[i] = Math.Round(random.Next(-10, 11) * random.NextDouble(), accuracyCalculations);
     }
     return outputArray;
 }
