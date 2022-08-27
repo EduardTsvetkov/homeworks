@@ -8,7 +8,7 @@
 // b1 = 2, k1 = 5, b2 = 4, k2 = 9 -> (-0,5; -0,5)
 
 
-bool MakeСhoice(string question)  // получаем ответ пользователя на вопрос
+bool MakeСhoice(string question)  // Получаем ответ пользователя на вопрос
 {
     Console.WriteLine(question);
     while (true)
@@ -35,7 +35,7 @@ List<int> FillIntList()  // заполняем список целыми чис�
     List<int> intList = new List<int>();
     bool flag = true;
     Console.WriteLine("Введите числа для подсчета.");
-    Console.WriteLine("Для окончания ввода элементов списка введите любой символ (не число).");
+    Console.WriteLine("Для окончания ввода элементов списка введите любой символ (не число) или нажмите Enter.");
     while (flag)
     {
         string inputString = Console.ReadLine();
@@ -47,7 +47,7 @@ List<int> FillIntList()  // заполняем список целыми чис�
         {
             flag = false;
         }
-       
+
     }
 
     return intList;
@@ -81,7 +81,7 @@ void PrintList(List<int> inputList)  // Вывод списка
 
 //------------
 
-void GetCrossCoordinate(double a, double c, double b, double d, out double x, out double y)
+void GetCrossCoordinate(double a, double c, double b, double d, out double x, out double y) // Находим коордтнаты пересечения
 {
     x = (d - c) / (a - b);
     y = (a * d - b * c) / (a - b);
@@ -89,7 +89,7 @@ void GetCrossCoordinate(double a, double c, double b, double d, out double x, ou
 
 //------------
 
-void DrawAxisX(int y, int axisLength)
+void DrawAxisX(int y, int axisLength)  // Рисуем ось X
 {
     for (int i = 0; i < axisLength - 1; i++)
     {
@@ -102,7 +102,7 @@ void DrawAxisX(int y, int axisLength)
 
 //------------
 
-void DrawAxisY(int x, int axisLength)
+void DrawAxisY(int x, int axisLength)  // Рисуем ось Y
 {
     Console.SetCursorPosition(x, 0);
     Console.Write("^Y");
@@ -115,32 +115,30 @@ void DrawAxisY(int x, int axisLength)
 
 //------------
 
-void DrawLine(double k, double b, int minX, int maxX, int offsetAxisX, int offsetAxisY)
+void DrawLine(double k, double b, int minX, int maxX, int offsetAxisX, int offsetAxisY) // Рисуем линию
 {
-
     for (int i = minX; i <= maxX; i++)
     {
-        int y = Convert.ToInt32( -k * i - b);
+        int y = Convert.ToInt32(-k * i - b);
         Console.SetCursorPosition(i + offsetAxisY, y + offsetAxisX);
         Console.Write("*");
     }
-    
 }
 
 //------------
 
-void GetRange(double k, double b, int terminalMiddleSize, double cross, out int min, out int max)
+void GetRange(double k, double b, int terminalMiddleSize, double cross, out int min, out int max)  // Определяем диапазон X
 {
     if (k > 0)
     {
         min = Convert.ToInt32((-terminalMiddleSize + 1 + cross - b) / k);
         max = Convert.ToInt32((terminalMiddleSize - 1 + cross - b) / k);
-    
+
     }
     else if (k < 0)
     {
         max = Convert.ToInt32((-terminalMiddleSize + 1 + cross - b) / k);
-        min = Convert.ToInt32((terminalMiddleSize - 1 + cross - b) / k) ;
+        min = Convert.ToInt32((terminalMiddleSize - 1 + cross - b) / k);
     }
     else
     {
@@ -148,7 +146,6 @@ void GetRange(double k, double b, int terminalMiddleSize, double cross, out int 
         max = 20;
     }
 }
-
 
 //------------ Задачи
 
@@ -170,7 +167,7 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
     Console.Clear();
     Console.WriteLine("График прямой задается формулой y = k * x + b .");
     Console.WriteLine("Введите коэффициенты для 1 прямой:");
-    Console.WriteLine("(для красоты исполбзуйте цифры от -3 до 3)");
+    Console.WriteLine("(для красоты используйте цифры от -3 до 3)  :-)");
     Console.Write("k1 = ");
     double k1 = Convert.ToDouble(Console.ReadLine());
     Console.Write("b1 = ");
@@ -196,11 +193,8 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
         GetCrossCoordinate(k1, b1, k2, b2, out crossX, out crossY);
         Console.WriteLine($"Координаты точки пересечения прямых y = {k1}*x + {b1} и y = {k2}*x + {b2} ");
         Console.WriteLine($"x = {crossX}, y = {crossY}");
-
-        
     }
     Console.WriteLine();
-
 
     if (MakeСhoice("Порисуем?"))
     {
@@ -209,33 +203,32 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
         Console.ForegroundColor = ConsoleColor.White;
         Console.ReadLine();
         Console.Clear();
-        int terminalSizeX = 100;
-        int terminalSizeY = 20;
-        
+        int terminalSizeX = 100;  // Указываем размер окна терминала для графика по ширине
+        int terminalSizeY = 20;   // Указываем размер окна терминала для графика по высоте
 
-        int terminalMiddleX = terminalSizeX / 2;
-        int terminalMiddleY = terminalSizeY / 2;
-        
-        int offsetAxisX = terminalMiddleY + Convert.ToInt32(crossY);
-        if (offsetAxisX > 0 & offsetAxisX < terminalSizeY)
+        int terminalMiddleX = terminalSizeX / 2;  // Середина терминала по X, там будет точка пересечения
+        int terminalMiddleY = terminalSizeY / 2;  // Середина терминала по Y, там будет точка пересечения
+
+        int offsetAxisX = terminalMiddleY + Convert.ToInt32(crossY);  // Смещение оси X по Y (чтоб пересечение было в центре)
+        if (offsetAxisX > 0 & offsetAxisX < terminalSizeY)            // Если не выходит за пределы экрана, то печатаем
         {
             DrawAxisX(offsetAxisX, terminalMiddleX * 2);
         }
-        int offsetAxisY = terminalMiddleX - Convert.ToInt32(crossX);
-        if (offsetAxisY > 0 & offsetAxisY < terminalSizeX)
+        int offsetAxisY = terminalMiddleX - Convert.ToInt32(crossX);  // Смещение оси Y по X (чтоб пересечение было в центре)
+        if (offsetAxisY > 0 & offsetAxisY < terminalSizeX)            // Если не выходит за пределы экрана, то печатаем
         {
             DrawAxisY(offsetAxisY, terminalMiddleY * 2);
         }
 
         int minX = 0;
         int maxX = 0;
-        GetRange(k1, b1, terminalMiddleY, crossY, out minX, out maxX);
+        GetRange(k1, b1, terminalMiddleY, crossY, out minX, out maxX);  // определяем диапазон X, чтоб график был в пределах
         Console.ForegroundColor = ConsoleColor.Red;
-        DrawLine(k1, b1, minX, maxX, offsetAxisX, offsetAxisY);
+        DrawLine(k1, b1, minX, maxX, offsetAxisX, offsetAxisY);         // Печатаем график
 
-        GetRange(k2, b2, terminalMiddleY, crossY, out minX, out maxX);
+        GetRange(k2, b2, terminalMiddleY, crossY, out minX, out maxX);  // определяем диапазон X, чтоб график был в пределах
         Console.ForegroundColor = ConsoleColor.Green;
-        DrawLine(k2, b2, minX, maxX, offsetAxisX, offsetAxisY);
+        DrawLine(k2, b2, minX, maxX, offsetAxisX, offsetAxisY);         // Печатаем график
 
         Console.SetCursorPosition(0, terminalSizeY);
         Console.ForegroundColor = ConsoleColor.Red;
@@ -244,6 +237,6 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
         Console.WriteLine($"y = {k2}*x + {b2}");
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine($"Точка пересечения x = {crossX}, y = {crossY}");
+        Console.WriteLine();
     }
-
 }
