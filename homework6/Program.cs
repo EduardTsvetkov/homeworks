@@ -87,6 +87,67 @@ void GetCrossCoordinate(double a, double c, double b, double d, out double x, ou
     y = (a * d - b * c) / (a - b);
 }
 
+//------------
+
+void DrawAxisX(int y, int axisLength)
+{
+    for (int i = 0; i < axisLength - 1; i++)
+    {
+        Console.SetCursorPosition(i, y);
+        Console.Write("-");
+    }
+    Console.Write(">");
+    Console.Write("X");
+}
+
+//------------
+
+void DrawAxisY(int x, int axisLength)
+{
+    Console.SetCursorPosition(x, 0);
+    Console.Write("^Y");
+    for (int i = 1; i < axisLength; i++)
+    {
+        Console.SetCursorPosition(x, i);
+        Console.Write("|");
+    }
+}
+
+//------------
+
+void DrawLine(double k, double b, int minX, int maxX, int offsetAxisX, int offsetAxisY)
+{
+
+    for (int i = minX; i <= maxX; i++)
+    {
+        int y = Convert.ToInt32( -k * i - b);
+        Console.SetCursorPosition(i + offsetAxisY, y + offsetAxisX);
+        Console.Write("*");
+    }
+    
+}
+
+//------------
+
+void GetRange(double k, double b, int terminalMiddleSize, double cross, out int min, out int max)
+{
+    if (k > 0)
+    {
+        min = Convert.ToInt32((-terminalMiddleSize + 1 + cross - b) / k);
+        max = Convert.ToInt32((terminalMiddleSize - 1 + cross - b) / k);
+    
+    }
+    else if (k < 0)
+    {
+        max = Convert.ToInt32((-terminalMiddleSize + 1 + cross - b) / k);
+        min = Convert.ToInt32((terminalMiddleSize - 1 + cross - b) / k) ;
+    }
+    else
+    {
+        min = -20;
+        max = 20;
+    }
+}
 
 
 //------------ Задачи
@@ -109,6 +170,7 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
     Console.Clear();
     Console.WriteLine("График прямой задается формулой y = k * x + b .");
     Console.WriteLine("Введите коэффициенты для 1 прямой:");
+    Console.WriteLine("(для красоты исполбзуйте цифры от -3 до 3)");
     Console.Write("k1 = ");
     double k1 = Convert.ToDouble(Console.ReadLine());
     Console.Write("b1 = ");
@@ -119,7 +181,8 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
     Console.Write("b2 = ");
     double b2 = Convert.ToDouble(Console.ReadLine());
     Console.WriteLine();
-    
+    double crossX = 0;
+    double crossY = 0;
     if (k1 == k2)
     {
         Console.WriteLine($"Прямые y = {k1}*x + {b1} и y = {k2}*x + {b2} параллельны.");
@@ -130,10 +193,57 @@ while (MakeСhoice("Решаем задачу 43? (точка пересечен
     }
     else
     {
-        double crossX, crossY;
         GetCrossCoordinate(k1, b1, k2, b2, out crossX, out crossY);
         Console.WriteLine($"Координаты точки пересечения прямых y = {k1}*x + {b1} и y = {k2}*x + {b2} ");
         Console.WriteLine($"x = {crossX}, y = {crossY}");
+
+        
     }
     Console.WriteLine();
+
+
+    if (MakeСhoice("Порисуем?"))
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Тогда необходимо увеличить терминал и нажать Enter.");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.ReadLine();
+        Console.Clear();
+        int terminalSizeX = 100;
+        int terminalSizeY = 20;
+        
+
+        int terminalMiddleX = terminalSizeX / 2;
+        int terminalMiddleY = terminalSizeY / 2;
+        
+        int offsetAxisX = terminalMiddleY + Convert.ToInt32(crossY);
+        if (offsetAxisX > 0 & offsetAxisX < terminalSizeY)
+        {
+            DrawAxisX(offsetAxisX, terminalMiddleX * 2);
+        }
+        int offsetAxisY = terminalMiddleX - Convert.ToInt32(crossX);
+        if (offsetAxisY > 0 & offsetAxisY < terminalSizeX)
+        {
+            DrawAxisY(offsetAxisY, terminalMiddleY * 2);
+        }
+
+        int minX = 0;
+        int maxX = 0;
+        GetRange(k1, b1, terminalMiddleY, crossY, out minX, out maxX);
+        Console.ForegroundColor = ConsoleColor.Red;
+        DrawLine(k1, b1, minX, maxX, offsetAxisX, offsetAxisY);
+
+        GetRange(k2, b2, terminalMiddleY, crossY, out minX, out maxX);
+        Console.ForegroundColor = ConsoleColor.Green;
+        DrawLine(k2, b2, minX, maxX, offsetAxisX, offsetAxisY);
+
+        Console.SetCursorPosition(0, terminalSizeY);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"y = {k1}*x + {b1}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"y = {k2}*x + {b2}");
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine($"Точка пересечения x = {crossX}, y = {crossY}");
+    }
+
 }
