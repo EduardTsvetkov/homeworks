@@ -30,7 +30,7 @@ bool MakeСhoice(string question)  // получаем ответ пользов
 
 //------------
 
-List<int> FillIntList()
+List<int> FillIntList()  // заполняем список целыми числами
 {
     List<int> intList = new List<int>();
     bool flag = true;
@@ -39,7 +39,7 @@ List<int> FillIntList()
     while (flag)
     {
         string inputString = Console.ReadLine();
-        if (int.TryParse(inputString, out int element))
+        if (int.TryParse(inputString, out int element))  // Конвертируем inputString в element и проверяем на ошибку
         {
             intList.Add(element);
         }
@@ -55,7 +55,7 @@ List<int> FillIntList()
 
 //------------
 
-int CheckPositive(List<int> inputList)
+int CheckPositive(List<int> inputList)  // Считаем количество положительных
 {
     int counter = 0;
     foreach (int item in inputList)
@@ -70,7 +70,7 @@ int CheckPositive(List<int> inputList)
 
 //------------
 
-void PrintList(List<int> inputList)
+void PrintList(List<int> inputList)  // Вывод списка
 {
     foreach (int item in inputList)
     {
@@ -78,6 +78,15 @@ void PrintList(List<int> inputList)
     }
     Console.WriteLine();
 }
+
+//------------
+
+void GetCrossCoordinate(double a, double c, double b, double d, out double x, out double y)
+{
+    x = (d - c) / (a - b);
+    y = (a * d - b * c) / (a - b);
+}
+
 
 
 //------------ Задачи
@@ -94,3 +103,37 @@ while (MakeСhoice("Решаем задачу 41? (количество поло
     Console.WriteLine();
 }
 
+Console.Clear();
+while (MakeСhoice("Решаем задачу 43? (точка пересечения прямых)"))
+{
+    Console.Clear();
+    Console.WriteLine("График прямой задается формулой y = k * x + b .");
+    Console.WriteLine("Введите коэффициенты для 1 прямой:");
+    Console.Write("k1 = ");
+    double k1 = Convert.ToDouble(Console.ReadLine());
+    Console.Write("b1 = ");
+    double b1 = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Введите коэффициенты для 2 прямой:");
+    Console.Write("k2 = ");
+    double k2 = Convert.ToDouble(Console.ReadLine());
+    Console.Write("b2 = ");
+    double b2 = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine();
+    
+    if (k1 == k2)
+    {
+        Console.WriteLine($"Прямые y = {k1}*x + {b1} и y = {k2}*x + {b2} параллельны.");
+        if (b1 == b2)
+        {
+            Console.WriteLine($"Прямые y = {k1}*x + {b1} и y = {k2}*x + {b2} совпадают.");
+        }
+    }
+    else
+    {
+        double crossX, crossY;
+        GetCrossCoordinate(k1, b1, k2, b2, out crossX, out crossY);
+        Console.WriteLine($"Координаты точки пересечения прямых y = {k1}*x + {b1} и y = {k2}*x + {b2} ");
+        Console.WriteLine($"x = {crossX}, y = {crossY}");
+    }
+    Console.WriteLine();
+}
