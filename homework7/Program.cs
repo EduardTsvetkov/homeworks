@@ -129,24 +129,41 @@ void PrintIntArray2D(int[,] inputArray)  // вывод на экран масс�
     Console.WriteLine();
 }
 
-bool FindingNumber(int[,] inputArray, int number, out int indexI, out int indexJ)
-{
-    indexI = -1;
-    indexJ = -1;
+bool FindingNumber(int[,] inputArray, int number)
+{   
+    bool flag = false;
+    
     for (int i = 0; i < inputArray.GetLength(0); i++)
     {
         for (int j = 0; j < inputArray.GetLength(1); j++)
         {
             if (inputArray[i, j] == number)
             {
-                indexI = i;
-                indexJ = j;
-                return true;
+                Console.WriteLine($"У числа {number} в массиве индекс [{i}, {j}]. ");
+                flag = true;
             }
         }
         
     }   
-    return false; 
+    Console.WriteLine();
+    return flag; 
+}
+
+//------------
+
+void PrintAverageInColumns(int[,] inputArray)
+{
+    int rows = inputArray.GetLength(0);
+    for (int j = 0; j < inputArray.GetLength(1); j++)
+    {
+        int columnsSum = 0;
+        for (int i = 0; i < rows; i++)
+        {
+            columnsSum += inputArray[i, j];
+        }
+        double average = Convert.ToDouble(columnsSum) / Convert.ToDouble(rows);
+        Console.WriteLine($"Среднее арифметическое столбца {j} равно: {average} ");
+    }
 }
 
 //------------ Задачи
@@ -154,7 +171,7 @@ bool FindingNumber(int[,] inputArray, int number, out int indexI, out int indexJ
 Console.Clear();
 while (MakeChoice("Выполняем задачу 47 (заполнение двумерного массива выещественными числами)?"))
 {
-
+    Console.Clear();
     int rows1 = GetIntInResponce("Введите количество строк: ");
     int columns1 = GetIntInResponce("Введите количество столбцов: ");
     int accuracy = GetIntInResponce("Введите точность (количество знаков после запятой): ");
@@ -166,9 +183,10 @@ while (MakeChoice("Выполняем задачу 47 (заполнение дв
     Console.WriteLine();
 }
 
-
+Console.Clear();
 while (MakeChoice("Решаем задачу 50 (поиск элемента массива)?"))
 {
+    Console.Clear();
     int rows2 = GetIntInResponce("Введите количество строк: ");
     int columns2 = GetIntInResponce("Введите количество столбцов: ");    
     int numFrom = GetIntInResponce("Массив заполняем числами от: ");
@@ -179,15 +197,25 @@ while (MakeChoice("Решаем задачу 50 (поиск элемента м�
     PrintIntArray2D(array2);
 
     int findNumber = GetIntInResponce("Введите искомое число: ");
-    int indI, indJ;
-    if (FindingNumber(array2, findNumber, out indI, out indJ))
-    {
-        Console.WriteLine($"У числа {findNumber} в массиве индекс [{indI}, {indJ}]. ");
-        Console.WriteLine();
-    }
-    else
+    if (!FindingNumber(array2, findNumber))
     {
         Console.WriteLine($"Числа {findNumber} нет в массиве. ");
         Console.WriteLine();
     }
+}
+
+Console.Clear();
+while (MakeChoice("Решаем задачу 52 (среднее по столбцам),"))
+{
+    Console.Clear();
+    int rows3 = GetIntInResponce("Введите количество строк: ");
+    int columns3 = GetIntInResponce("Введите количество столбцов: ");    
+    int numFrom3 = GetIntInResponce("Массив заполняем числами от: ");
+    int numTo3 = GetIntInResponce("Массив заполняем числами до: ");
+    
+    int[,] array3 = FillIntArray2D(rows3, columns3, numFrom3, numTo3);
+
+    PrintIntArray2D(array3);
+    PrintAverageInColumns(array3);
+    Console.WriteLine();
 }
