@@ -21,7 +21,11 @@
 // 8 4 2 4
 // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
-
+/// <summary>
+/// Получение от пользователя ответа на вопрос.
+/// </summary>
+/// <param name='question'>Это вопрос пользователю</param>
+/// <returns>true - да, false - нет</returns>
 bool MakeChoice(string question)  // получаем ответ пользователя на вопрос
 {
     Console.WriteLine(question);
@@ -42,8 +46,11 @@ bool MakeChoice(string question)  // получаем ответ пользов�
     }
 }
 
-//------------
-
+/// <summary>
+/// Запрос у пользователя на ввод информации, проверка правильности 
+/// </summary>
+/// <param name='request'>Запрос к пользователю на ввод информации</param>
+/// <returns>Целое число, введенное пользователем</returns>
 int GetIntInResponce(string request)
 {
     string answer = String.Empty;
@@ -59,8 +66,13 @@ int GetIntInResponce(string request)
     }
 }
 
-//------------
-
+/// <summary>
+/// Заполнение двумерного массива вещественными числами от -100 до 100
+/// </summary>
+/// <param name='m'>Число строк массива</param>
+/// <param name='n'>Число столбцов массива</param>
+/// <param name='accuracyCalculations'>Число знаков после запятой при округлении</param>
+/// <returns>Двумерный массив вещественных чисел</returns>
 double[,] FillDoubleArray2D(int m, int n, int accuracyCalculations)  // получаем размер массива и точность вычисления
 {
     double[,] outputArray = new double[m, n];
@@ -70,13 +82,19 @@ double[,] FillDoubleArray2D(int m, int n, int accuracyCalculations)  // полу
         for (int j = 0; j < n; j++)
         {
             outputArray[i, j] = Math.Round(random.Next(-100, 101) * random.NextDouble(), accuracyCalculations);
-        }    
+        }
     }
     return outputArray;
 }
 
-//------------
-
+/// <summary>
+/// Заполнение двумерного массива целых числами от min до max
+/// </summary>
+/// <param name='m'>Число строк массива</param>
+/// <param name='n'>Число столбцов массива</param>
+/// <param name='min'>Минимальное число диапазона генерируемых чисел</param>
+/// <param name='max'>Максимальное число диапазона генерируемых чисел</param>
+/// <returns>Двумерный массив целых чисел</returns>
 int[,] FillIntArray2D(int m, int n, int min, int max)  // получаем размер массива и точность вычисления
 {
     int[,] outputArray = new int[m, n];
@@ -86,13 +104,16 @@ int[,] FillIntArray2D(int m, int n, int min, int max)  // получаем ра�
         for (int j = 0; j < n; j++)
         {
             outputArray[i, j] = random.Next(min, max + 1);
-        }    
+        }
     }
     return outputArray;
 }
 
-//------------
-
+/// <summary>
+/// Вывод в консоль двумерного массива вещественных чисел
+/// </summary>
+/// <param name='inputArray'>Двумерный массив вещественных чисел</param>
+/// <returns></returns>
 void PrintDoubleArray2D(double[,] inputArray)
 {
     string max = Convert.ToString(inputArray.Cast<double>().Max());  // находит максимальный элемент массива и в стринг
@@ -103,13 +124,17 @@ void PrintDoubleArray2D(double[,] inputArray)
     {
         for (int j = 0; j < inputArray.GetLength(1); j++)
         {
-              Console.Write(String.Format(forFormat, inputArray[i, j]));
+            Console.Write(String.Format(forFormat, inputArray[i, j]));
         }
         Console.WriteLine();
     }
 }
 
-//------------
+/// <summary>
+/// Вывод в консоль двумерного массива целых чисел
+/// </summary>
+/// <param name='inputArray'>Двумерный массив целых чисел</param>
+/// <returns></returns>
 
 void PrintIntArray2D(int[,] inputArray)  // вывод на экран массива целых чисел
 {
@@ -122,17 +147,24 @@ void PrintIntArray2D(int[,] inputArray)  // вывод на экран масс�
     {
         for (int j = 0; j < inputArray.GetLength(1); j++)
         {
-              Console.Write(String.Format(forFormat, inputArray[i, j]));
+            Console.Write(String.Format(forFormat, inputArray[i, j]));
         }
         Console.WriteLine();
     }
     Console.WriteLine();
 }
 
+
+/// <summary>
+/// Вывод в консоль индексов искомого числа в массиве целых чисел
+/// </summary>
+/// <param name='inputArray'>Двумерный массив целых чисел</param>
+/// <param name='number'>Число для поиска в массиве</param>
+/// <returns>true - число есть в массиве, false - числа нет</returns>
 bool FindingNumber(int[,] inputArray, int number)
-{   
+{
     bool flag = false;
-    
+
     for (int i = 0; i < inputArray.GetLength(0); i++)
     {
         for (int j = 0; j < inputArray.GetLength(1); j++)
@@ -143,14 +175,17 @@ bool FindingNumber(int[,] inputArray, int number)
                 flag = true;
             }
         }
-        
-    }   
+
+    }
     Console.WriteLine();
-    return flag; 
+    return flag;
 }
 
-//------------
-
+/// <summary>
+/// Вывод в консоль среднего арифметического по столбцам массива
+/// </summary>
+/// <param name='inputArray'>Двумерный массив целых чисел</param>
+/// <returns></returns>
 void PrintAverageInColumns(int[,] inputArray)
 {
     int rows = inputArray.GetLength(0);
@@ -175,7 +210,7 @@ while (MakeChoice("Выполняем задачу 47 (заполнение дв
     int rows1 = GetIntInResponce("Введите количество строк: ");
     int columns1 = GetIntInResponce("Введите количество столбцов: ");
     int accuracy = GetIntInResponce("Введите точность (количество знаков после запятой): ");
-    
+
     Console.WriteLine();
 
     double[,] array1 = FillDoubleArray2D(rows1, columns1, accuracy);
@@ -188,10 +223,10 @@ while (MakeChoice("Решаем задачу 50 (поиск элемента м�
 {
     Console.Clear();
     int rows2 = GetIntInResponce("Введите количество строк: ");
-    int columns2 = GetIntInResponce("Введите количество столбцов: ");    
+    int columns2 = GetIntInResponce("Введите количество столбцов: ");
     int numFrom = GetIntInResponce("Массив заполняем числами от: ");
     int numTo = GetIntInResponce("Массив заполняем числами до: ");
-    
+
     int[,] array2 = FillIntArray2D(rows2, columns2, numFrom, numTo);
 
     PrintIntArray2D(array2);
@@ -209,13 +244,14 @@ while (MakeChoice("Решаем задачу 52 (среднее по столб�
 {
     Console.Clear();
     int rows3 = GetIntInResponce("Введите количество строк: ");
-    int columns3 = GetIntInResponce("Введите количество столбцов: ");    
+    int columns3 = GetIntInResponce("Введите количество столбцов: ");
     int numFrom3 = GetIntInResponce("Массив заполняем числами от: ");
     int numTo3 = GetIntInResponce("Массив заполняем числами до: ");
-    
+
     int[,] array3 = FillIntArray2D(rows3, columns3, numFrom3, numTo3);
 
     PrintIntArray2D(array3);
     PrintAverageInColumns(array3);
     Console.WriteLine();
 }
+Console.Clear();
