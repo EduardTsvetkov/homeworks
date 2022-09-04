@@ -72,30 +72,6 @@ int GetIntInResponce(string request)
     }
 }
 
-/*
-
-/// <summary>
-/// Заполнение двумерного массива вещественными числами от -100 до 100
-/// </summary>
-/// <param name='m'>Число строк массива</param>
-/// <param name='n'>Число столбцов массива</param>
-/// <param name='accuracyCalculations'>Число знаков после запятой при округлении</param>
-/// <returns>Двумерный массив вещественных чисел</returns>
-double[,] FillDoubleArray2D(int m, int n, int accuracyCalculations)  // получаем размер массива и точность вычисления
-{
-    double[,] outputArray = new double[m, n];
-    Random random = new Random();
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            outputArray[i, j] = Math.Round(random.Next(-100, 101) * random.NextDouble(), accuracyCalculations);
-        }
-    }
-    return outputArray;
-}
-*/
-
 /// <summary>
 /// Заполнение двумерного массива целых числами от min до max
 /// </summary>
@@ -117,28 +93,38 @@ int[,] FillIntArray2D(int m, int n, int min, int max)  // получаем ра�
     }
     return outputArray;
 }
-/*
+
 /// <summary>
-/// Вывод в консоль двумерного массива вещественных чисел
+/// Заполнение трехмерного массива неповторяющимися целыми числами от min до max
 /// </summary>
-/// <param name='inputArray'>Двумерный массив вещественных чисел</param>
-/// <returns></returns>
-void PrintDoubleArray2D(double[,] inputArray)
+/// <param name='l'>Число строк массива</param>
+/// <param name='m'>Число столбцов массива</param>
+/// <param name='n'>'Глубина' массива</param>
+/// <param name='min'>Минимальное число диапазона генерируемых чисел</param>
+/// <param name='max'>Максимальное число диапазона генерируемых чисел</param>
+/// <returns>Двумерный массив целых чисел</returns>
+int[,,] FillIntArray3D(int l, int m, int n, int min, int max)  // получаем размер массива и границы
 {
-    string max = Convert.ToString(inputArray.Cast<double>().Max());  // находит максимальный элемент массива и в стринг
-    string min = Convert.ToString(inputArray.Cast<double>().Min());  // находит минимальный элемент массива и в стринг
-    int len = Math.Max(max.Length, min.Length) + 1;                  // определяем размер поля (не совсем корректно...)
-    string forFormat = "{0, " + Convert.ToString(len) + "}";
-    for (int i = 0; i < inputArray.GetLength(0); i++)
+    int[,,] outputArray = new int[l, m, n];
+    Random random = new Random();
+    List<int> elements = new List<int>();
+    for (int i = 0; i < l; i++)
     {
-        for (int j = 0; j < inputArray.GetLength(1); j++)
+        for (int j = 0; j < m; j++)
         {
-            Console.Write(String.Format(forFormat, inputArray[i, j]));
+            for (int k = 0; k < n; k++)
+            {
+                do
+                {
+                    outputArray[i, j, k] = random.Next(min, max + 1);
+                } while (elements.Contains(outputArray[i, j, k]));
+                elements.Add(outputArray[i, j, k]);
+            }
+            
         }
-        Console.WriteLine();
     }
+    return outputArray;
 }
-*/
 
 /// <summary>
 /// Вывод в консоль двумерного массива целых чисел
@@ -162,6 +148,35 @@ void PrintIntArray2D(int[,] inputArray)  // вывод на экран масс�
         Console.WriteLine();
     }
 }
+
+
+
+/// <summary>
+/// Печать трехмерного массива целых чисел по строкам (слоями).
+/// </summary>
+/// <param name='inputArray'>Трёхмерный массив целых чисел</param>
+/// <param name='m'>Число столбцов массива</param>
+/// <returns></returns>
+void PrintArray3DLayers(int[,,] inputArray)  
+{
+    int l = inputArray.GetLength(0);
+    int m = inputArray.GetLength(1);
+    int n = inputArray.GetLength(2);
+    for (int i = 0; i < l; i++)
+    {
+        Console.WriteLine($"Срез {i}:");
+        for (int j = 0; j < m; j++)
+        {
+            for (int k = 0; k < n; k++)
+            {
+                Console.Write(String.Format("{0, 10}", $"{inputArray[i, j, k]}({i},{j},{k})"));
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
+
 
 /// <summary>
 /// Упорядочение по убыванию элементов строк двумерного массива целых числел
@@ -323,5 +338,22 @@ while (MakeChoice("Решаем задачу 58 (произведение мат
         Console.WriteLine("Количество столбцов первой матрицы не равно количеству строк второй");
         Console.WriteLine("Умножение матриц невозможно!");
     }
+    Console.WriteLine();
+}
+
+
+Console.Clear();
+while (MakeChoice("Решаем задачу 60 (с трёхмерным массивом)? "))
+{
+    Console.Clear();
+    int rows = GetIntInResponce("Введите количество строк: ");
+    int columns = GetIntInResponce("Введите количество столбцов: ");
+    int depth = GetIntInResponce("Введите 'глубину' массива: ");
+    int numFrom = GetIntInResponce("Массив заполняем числами от: ");
+    int numTo = GetIntInResponce("Массив заполняем числами до: ");
+    Console.WriteLine();
+
+    int[,,] array3D = FillIntArray3D(rows, columns, depth, numFrom, numTo);
+    PrintArray3DLayers(array3D);
     Console.WriteLine();
 }
