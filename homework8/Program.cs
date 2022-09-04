@@ -72,6 +72,8 @@ int GetIntInResponce(string request)
     }
 }
 
+/*
+
 /// <summary>
 /// Заполнение двумерного массива вещественными числами от -100 до 100
 /// </summary>
@@ -92,6 +94,7 @@ double[,] FillDoubleArray2D(int m, int n, int accuracyCalculations)  // полу
     }
     return outputArray;
 }
+*/
 
 /// <summary>
 /// Заполнение двумерного массива целых числами от min до max
@@ -114,7 +117,7 @@ int[,] FillIntArray2D(int m, int n, int min, int max)  // получаем ра�
     }
     return outputArray;
 }
-
+/*
 /// <summary>
 /// Вывод в консоль двумерного массива вещественных чисел
 /// </summary>
@@ -135,6 +138,7 @@ void PrintDoubleArray2D(double[,] inputArray)
         Console.WriteLine();
     }
 }
+*/
 
 /// <summary>
 /// Вывод в консоль двумерного массива целых чисел
@@ -157,14 +161,12 @@ void PrintIntArray2D(int[,] inputArray)  // вывод на экран масс�
         }
         Console.WriteLine();
     }
-    Console.WriteLine();
 }
 
 /// <summary>
 /// Упорядочение по убыванию элементов строк двумерного массива целых числел
 /// </summary>
-/// <param name='inputArray'>Не сортированный массив</param>
-/// <param name='n'>Число столбцов массива</param>
+/// <param name='inputArray'>Не сортированный массив целых чисел</param>
 /// <returns>Двумерный массив целых чисел с отсортированными по убыванию строками</returns>
 int[,] SortIntArray2D(int[,] inputArray)  // получаем массив
 {
@@ -189,22 +191,137 @@ int[,] SortIntArray2D(int[,] inputArray)  // получаем массив
     return inputArray;
 }
 
+/// <summary>
+/// Поиск строки двумерного массива целых чисел с минимальной суммой элементов
+/// </summary>
+/// <param name='inputArray'>Массив целых чисел</param>
+/// <returns>Индекс строки массива с минимальной суммой элементов</returns>
+int FindMinRow(int[,] inputArray)  
+{
+    int[] tempArray = new int[inputArray.GetLength(0)];
+    int sum;
+        
+    for (int i = 0; i < inputArray.GetLength(0); i++)
+    {
+        sum = 0;
+        for (int j = 0; j < inputArray.GetLength(1); j++)  
+        {
+            sum += inputArray[i,j];  // Считаем сумму элементов строки
+        }
+        tempArray[i] = sum;
+    }
+    int result = 0;
+    int minSum = tempArray[0];
+    for (int i = 1; i < tempArray.Length; i++)
+    {
+        if (minSum > tempArray[i])
+        {
+            result = i;
+            minSum = tempArray[i];
+        }
+    }
+    return result;
+}
 
+/// <summary>
+/// Умножение двух матриц целых чисел
+/// </summary>
+/// <param name='first'>Первая матрица i x r</param>
+/// <param name='second'>Вторая матрица r x j</param>
+/// <returns>Итоговая матрица i x j</returns>
+int[,] MatrixMultiplication(int[,] first, int[,] second)
+{
+    int firstRows = first.GetLength(0);
+    int secondColumns = second.GetLength(1);
+    int size = first.GetLength(1);
+    int[,] result = new int[firstRows, secondColumns];
+    int sum;
+    for (int i = 0; i < firstRows; i++)
+    {
+        for (int j = 0; j < secondColumns; j++)
+        {
+            sum = 0;
+            for (int r = 0; r < size; r++)
+            {
+                sum += first[i,r] * second[r,j];
+            }
+            result[i,j] = sum;
+
+        }
+    }
+    return result;
+
+}
 
 
 //------------ Задачи
 
+Console.Clear();
 while (MakeChoice("Решаем задачу 54 (упорядочить строки)?: "))
 {
+    Console.Clear();
     int rows1 = GetIntInResponce("Введите количество строк: ");
     int columns1 = GetIntInResponce("Введите количество столбцов: ");
     int numFrom = GetIntInResponce("Массив заполняем числами от: ");
     int numTo = GetIntInResponce("Массив заполняем числами до: ");
-
+    Console.Clear();
     int[,] array1 = FillIntArray2D(rows1, columns1, numFrom, numTo);
-    Console.WriteLine("Не сортированный массив: ");
+    Console.WriteLine($"Не сортированный массив {rows1}x{columns1} (числа от {numFrom} до {numTo}):");
     PrintIntArray2D(array1);
     Console.WriteLine("Cортированный массив: ");
     PrintIntArray2D(SortIntArray2D(array1));
-
+    Console.WriteLine();
 } 
+
+Console.Clear();
+while (MakeChoice("Решаем задачу 56 (поиск строки с минимальной суммой элементов)? "))
+{
+    Console.Clear();
+    int rows2 = GetIntInResponce("Введите количество строк: ");
+    int columns2 = GetIntInResponce("Введите количество столбцов: ");
+    int numFrom = GetIntInResponce("Массив заполняем числами от: ");
+    int numTo = GetIntInResponce("Массив заполняем числами до: ");
+    Console.Clear();
+    int[,] array2 = FillIntArray2D(rows2, columns2, numFrom, numTo);
+    Console.WriteLine("В массиве:");
+    PrintIntArray2D(array2);
+    
+    Console.WriteLine($"В строке с индексом {FindMinRow(array2)} сума элементов минимальна.");
+    Console.WriteLine();
+   
+}
+
+Console.Clear();
+while (MakeChoice("Решаем задачу 58 (произведение матриц)? "))
+{
+    Console.Clear();
+    Console.WriteLine("Для первой матрицы");
+    int rowsFirst = GetIntInResponce("Введите количество строк: ");
+    int columnsFirst = GetIntInResponce("Введите количество столбцов: ");
+    int numFrom = GetIntInResponce("Массив заполняем числами от: ");
+    int numTo = GetIntInResponce("Массив заполняем числами до: ");
+    int[,] firstMatrix = FillIntArray2D(rowsFirst, columnsFirst, numFrom, numTo);
+    Console.WriteLine("Для второй матрицы");
+    int rowsSecond = GetIntInResponce("Введите количество строк: ");
+    int columnsSecond = GetIntInResponce("Введите количество столбцов: ");
+    numFrom = GetIntInResponce("Массив заполняем числами от: ");
+    numTo = GetIntInResponce("Массив заполняем числами до: ");
+    int[,] secondMatrix = FillIntArray2D(rowsSecond, columnsSecond, numFrom, numTo);
+    Console.Clear();
+
+    if (columnsFirst == rowsSecond)
+    {
+        Console.WriteLine($"Умножение матрицы {rowsFirst}x{columnsFirst}");
+        PrintIntArray2D(firstMatrix);
+        Console.WriteLine($"на матрицу {rowsSecond}x{columnsSecond}");
+        PrintIntArray2D(secondMatrix);
+        Console.WriteLine($"дает матрицу {rowsFirst}x{columnsSecond}");
+        PrintIntArray2D(MatrixMultiplication(firstMatrix, secondMatrix));
+    }
+    else
+    {
+        Console.WriteLine("Количество столбцов первой матрицы не равно количеству строк второй");
+        Console.WriteLine("Умножение матриц невозможно!");
+    }
+    Console.WriteLine();
+}
