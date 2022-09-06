@@ -268,6 +268,43 @@ int[,] MatrixMultiplication(int[,] first, int[,] second)
 
 }
 
+int[,] FillSpiral(int Y, int X)
+{
+    int[,] arr = new int[Y, X];
+    int col = 0;
+    int row = 0;
+    int dX = 0, dY = 0;
+    int num = 0;
+    for (int i = 1; i < arr.Length + 1; i++)
+    {
+        arr[row, col] = i;
+        if ((X - i) + num > 0)  // идем по верху
+        {
+            dX = 1; dY = 0;
+        }
+        else if ((X + Y - 1 - i) + num > 0) // идем по правому краю
+        {
+            dX = 0; dY = 1;
+        }
+        else if ((2 * X + Y - 2 - i) + num > 0)  // идем по низу
+        {
+            dX = -1; dY = 0;
+        }
+        else if ((2 * X + 2 * Y - 4 - i) + num > 0)  // идем по правому краю
+        {
+            dX = 0; dY = -1;
+        }
+        else                                         // вносим корректировки (уменьшаем размер спирали)
+        {
+            dX = 1; dY = 0;
+            X -= 2; Y -= 2;
+            num = i;
+        }
+        row += dY;
+        col += dX;
+    }
+    return arr;
+}
 
 //------------ Задачи
 
@@ -307,7 +344,7 @@ while (MakeChoice("Решаем задачу 56 (поиск строки с ми
 }
 
 Console.Clear();
-while (MakeChoice("Решаем задачу 58 (произведение матриц)? "))
+while (MakeChoice("Решаем задачу 58 (произведение матриц)? ")) // проверял результат онлайн
 {
     Console.Clear();
     Console.WriteLine("Для первой матрицы");
@@ -349,11 +386,26 @@ while (MakeChoice("Решаем задачу 60 (с трёхмерным мас�
     int rows = GetIntInResponce("Введите количество строк: ");
     int columns = GetIntInResponce("Введите количество столбцов: ");
     int depth = GetIntInResponce("Введите 'глубину' массива: ");
-    int numFrom = GetIntInResponce("Массив заполняем числами от: ");
-    int numTo = GetIntInResponce("Массив заполняем числами до: ");
+    int numFrom, numTo;
+    do
+    {
+        Console.WriteLine($"Диапазон чисел должен быть больше {rows * columns * depth}.");
+        numFrom = GetIntInResponce("Массив заполняем числами от: ");
+        numTo = GetIntInResponce("Массив заполняем числами до: ");
+    } while (numTo - numFrom + 1 < rows * columns * depth);
+    
     Console.WriteLine();
 
     int[,,] array3D = FillIntArray3D(rows, columns, depth, numFrom, numTo);
     PrintArray3DLayers(array3D);
     Console.WriteLine();
+}
+
+Console.Clear();
+while (MakeChoice("Решаем задачу 62 (спиральное заполнение)? "))
+{
+    int rowsSpiral = GetIntInResponce("Введите количество строк: ");
+    int columnsSpiral = GetIntInResponce("Введите количество столбцов: ");
+    int[,] spiralArr = FillSpiral(rowsSpiral, columnsSpiral);
+    PrintIntArray2D(spiralArr);
 }
