@@ -84,6 +84,31 @@ int CalcSum(int m, int n, int result = 0)
     return result;
 }
 
+/// <summary>
+/// Вычисление функции Аккермана (рекурсия) 
+/// </summary>
+/// <param name='m'>Первое число</param>
+/// <param name='n'>Второе число</param>
+/// <returns>Значение функции</returns>
+
+ulong AkkermanFunction(ulong m, ulong n)
+{
+    ulong result;
+    if (m == 0)
+    {
+        result = n + 1;
+    }
+    else if (m > 0 & n == 0)
+    {
+        result = AkkermanFunction(m - 1, 1);
+    }
+    else
+    {
+        result = AkkermanFunction(m - 1, AkkermanFunction(m, n - 1));    
+    }
+    return result;
+}
+
 
 Console.Clear();
 while (MakeChoice("Решаем задачу 64 (вывод чисел в указанном интервале)? "))
@@ -115,5 +140,16 @@ while (MakeChoice("Решаем задачу 66 (вывод суммы диап�
     } while (numFrom2 >= numTo2);
     
     Console.WriteLine(CalcSum(numFrom2, numTo2));
+    Console.WriteLine();
+}
+
+Console.Clear();
+while (MakeChoice("Решаем задачу 68 (функция Аккермана)? "))
+{
+    Console.Clear();
+    ulong numM = Convert.ToUInt64(GetIntInResponce("Введие первое число: "));
+    ulong numN = Convert.ToUInt64(GetIntInResponce("Введие второе число: "));
+    Console.WriteLine("Функция Аккермана:");
+    Console.WriteLine($"A({numM},{numN}) = {AkkermanFunction(numM, numN)}");
     Console.WriteLine();
 }
