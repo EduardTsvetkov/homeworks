@@ -15,14 +15,6 @@ public class Programm {
             beginCell = new Cell(x, y, -1);
             maze.buildWall(beginCell, length);
         }
-        // maze.print();
-        // // тестовая стена
-        // x = 2;
-        // y = 18;
-        // length = 30;
-        // beginCell = new Cell(x, y, -1);
-        // maze.buildWall(beginCell, length);
-        // // ---    
 
         Wave wave = new Wave(maze);
         wave.initDoors();
@@ -30,12 +22,12 @@ public class Programm {
         maze.print();
 
         wave.makeWave();
-        // System.out.println();  
-        // System.out.println("Лабиринт после \"волны\":");
-        // maze.print();
         Console.WriteLine();  
         Console.WriteLine("Координаты выходов и расстояния до них:");
-        Console.WriteLine(wave.exits);
+        foreach (Cell cell in wave.exits)
+        {
+            Console.WriteLine(cell);
+        }
 
         wave.pathFinding(); 
         Console.WriteLine();  

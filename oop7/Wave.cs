@@ -15,7 +15,7 @@ public class Wave {
     }
 
     /**
-     * Метод расставляет по четырем четвертям лабиринта вход и три выхода
+     * Метод расставляет по четырем четвертям лабиринта вход и выход/ы 
      */
     public void initDoors() {
         Random rnd = new Random();
@@ -29,15 +29,15 @@ public class Wave {
         maze.markCell(entrance);
         forProcessing.Enqueue(entrance);
 
-        // x = RandInt.randInt(halfWidth + 1, maze.width - 2);  // выход в верхней правой четверти
-        // y = RandInt.randInt(1, halfHeight - 1);
-        // exit1 = new Cell(x, y, -8); 
-        // maze.markCell(exit1);
+        x = rnd.Next(halfWidth + 1, maze.width - 2);  // выход в верхней правой четверти
+        y = rnd.Next(1, halfHeight - 1);
+        exit1 = new Cell(x, y, -8); 
+        maze.markCell(exit1);
 
-        // x = RandInt.randInt(1, halfWidth - 1);  // выход в нижней левой четверти
-        // y = RandInt.randInt(halfHeight + 1, maze.height - 2);
-        // exit2 = new Cell(x, y, -8); 
-        // maze.markCell(exit2);
+        x = rnd.Next(1, halfWidth - 1);  // выход в нижней левой четверти
+        y = rnd.Next(halfHeight + 1, maze.height - 2);
+        exit2 = new Cell(x, y, -8); 
+        maze.markCell(exit2);
 
         x = rnd.Next(halfWidth + 1, maze.width - 1);  // выход в нижней правой четверти
         y = rnd.Next(halfHeight + 1, maze.height - 1);
@@ -45,8 +45,8 @@ public class Wave {
         maze.markCell(exit3);
 
         Console.Write(String.Format("Вход  {0} \n", entrance));
-        // Console.Write(String.Format("Вход  {0} \n", exit1));
-        // Console.Write(String.Format("Вход  {0} \n", exit2));
+        Console.Write(String.Format("Вход  {0} \n", exit1));
+        Console.Write(String.Format("Вход  {0} \n", exit2));
         Console.Write(String.Format("Выход  {0} \n", exit3));
 
     }

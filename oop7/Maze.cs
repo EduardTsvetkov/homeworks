@@ -6,7 +6,7 @@ using System.Collections;
 public class Maze {
     public int height;
     public int width;
-    // private String brick = "\u25A6\u25A6\u25A6";
+    
     public String brick = "####";
     public int[,] platform;
     Compass compass = new Compass();
@@ -119,7 +119,6 @@ public class Maze {
      */
     public void buildWall(Cell currentCell, int wallLength) {
         Random rnd = new Random();
-        // Compass compass = new Compass();
         int previousDirection = -1;
         int direction;
         ArrayList blockedDirections = new ArrayList();
@@ -152,8 +151,8 @@ public class Maze {
         
         while (counter < wallLength && blockedDirections.Count < 4 && !end) {  // продолжаем "змею" стены
 
-            direction = rnd.Next(1, 5);  // предполагаемое направление движения по "компасу"
-            // direction = 3;  // тестовое направление вниз
+            direction = rnd.Next(4);  // предполагаемое направление движения по "компасу"
+            
             if (begin) {  // следующая за первой ячейка
                 previousDirection = direction;
             }
